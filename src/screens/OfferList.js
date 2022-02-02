@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, Image, StyleSheet, View } from 'react-native'
 import Header from '../componentes/Header'
 import Offer from '../componentes/Offer'
 

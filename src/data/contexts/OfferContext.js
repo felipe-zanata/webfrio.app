@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react"
 import axios from 'axios'
 import useEvent from '../hooks/useEvent'
 import useUser from '../hooks/useUser'
+import OfferData from "../OfferData"
 
 const OfferContext = createContext({})
 
@@ -16,7 +17,7 @@ export const OfferProvider = ({ children }) => {
         fetchOffer: async function() {
             try {
                 const res = await axios.get('/offer.json')
-                const rawOffer = res.data
+                const rawOffer = {...OfferData}
                 const offerTemp = []
                 for(let key in rawOffer) {
                     offerTemp.push({

@@ -1,11 +1,10 @@
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-import { Gravatar } from 'react-native-gravatar'
+import { Image, StyleSheet, Text, View } from "react-native"
 
 export default props => 
+
     <View style={styles.container}>
-        <Gravatar options={{email: props.email, secure: true}}
-            style={styles.avatar} />
+         <Image source={props.Logo} style={styles.avatar} />
         <Text style={styles.nickname}>{props.nickname}</Text>
     </View>
 
