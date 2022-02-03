@@ -12,7 +12,9 @@ import Profile from './screens/Profile'
 import Direction from './screens/Direction'
 import Login from './screens/Login'
 import Localization from './screens/Localization'
-import Register from './screens/signup/Register';
+import Register from './screens/signup/Register'
+import NewUser from './screens/signup/NewUser'
+import Details from './screens/Details';
 
 import useUser from './data/hooks/useUser'
 import commonStyles from './commonStyles';
@@ -21,6 +23,7 @@ import commonStyles from './commonStyles';
 const Tab = createBottomTabNavigator()
 const SwitchStack = createStackNavigator()
 const AuthStack = createStackNavigator()
+const PermissionStack = createStackNavigator()
 
 const routeIcon = {
     Feed: 'home',
@@ -32,6 +35,15 @@ export default props => {
 
     const { placa } = useUser()
 
+    const granted = false
+    
+    const Permission = () => (
+        <PermissionStack.Navigator initialRouteName="Localization" screenOptions={{ headerShown: false }}>
+                    <PermissionStack.Screen name="AuthOrProfile" component={AuthOrProfile} />
+                    <PermissionStack.Screen name="Localization" component={Localization} />
+        </PermissionStack.Navigator>
+    )
+
     const Auth = () => (
         <AuthStack.Navigator initialRouteName="Direction"
             screenOptions={{
@@ -41,6 +53,7 @@ export default props => {
             <AuthStack.Screen name="Login" component={Login} />
             <AuthStack.Screen name="Localization" component={Localization} />
             <AuthStack.Screen name="Register" component={Register} />
+            <AuthStack.Screen name="NewUser" component={NewUser} />
         </AuthStack.Navigator>
     )
 
@@ -66,7 +79,7 @@ export default props => {
         <NavigationContainer>
             <SwitchStack.Navigator screenOptions={{ headerShown: false }}>
                 {placa ?
-                    <SwitchStack.Screen name="AuthOrProfile" component={AuthOrProfile} />
+                    <SwitchStack.Screen name="Permission" component={Permission} />
                     :
                     <SwitchStack.Screen name="Auth" component={Auth} />
                 }

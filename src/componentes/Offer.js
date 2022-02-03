@@ -14,18 +14,24 @@ export default props => {
     return (
         <View style={{flex:1, flexDirection: 'row'}}>
             <TouchableOpacity
-                onPress={() => {/*  props.navigation.navigate('detalhe') */ }}
+                onPress={() => {}}
                 style={styles.formContainer}>
                 <Image source={props.logo}
                     style={styles.image} />
                 <View >
+                    <Text>Nome da empresa</Text>
                     <Text style={ styles.title }>{props.name}</Text>
+                    <Text>Tipo de pagamento</Text>
                     <Text style={ styles.title }>{props.payment}</Text>
+                    <Text>Preço</Text>
                     <Text style={ styles.title }>{props.price}</Text>
                 </View>
                 <View>
+                    <Text>Origem</Text>
                     <Text style={ styles.title }>{props.origin}</Text>
+                    <Text>Destino</Text>
                     <Text style={ styles.title }>{props.destination}</Text>
+                    <Text>Kilometragem</Text>
                     <Text style={ styles.title }>{props.km}</Text>
                 </View>
             </TouchableOpacity>
@@ -35,8 +41,8 @@ export default props => {
 
 const styles = StyleSheet.create({
     image: {
-        width: 90,
-        height: 90,
+        width: 70,
+        height: 70,
         resizeMode: 'contain',
         /*borderWidth: 1,
         borderColor: commonStyles.colors.subText,*/
@@ -44,8 +50,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     title: {
-        fontFamily: commonStyles.fontFamily.bold,
+        fontFamily: commonStyles.fontFamily.semiBold,
         color: commonStyles.colors.mainText,
+        margin: 1,
+        marginLeft: 5,
         fontSize: 15,
         alignItems: 'center',
         textAlign: 'left'
@@ -62,8 +70,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#FFF',
         padding: 5,
-        margin: 10,
-        height: 100,
+        margin: 5,
+        height: 150,
         width: '95%',
         borderRadius: 10,
         shadowColor: '#171717',
@@ -71,10 +79,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         elevation: 3,
         alignSelf: 'center',
-    },
-    input: {
-        marginTop: 15,
-        backgroundColor: '#FFF',
     },
     button: {
         backgroundColor: 'rgb(66, 66, 66,0.8)',

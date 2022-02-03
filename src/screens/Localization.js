@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, PermissionsAndroid  } from 'react-native';
 import React from 'react';
 
 import Logo from '../../assets/imgs/WebFrio.png';
@@ -6,6 +6,8 @@ import Map from '../../assets/imgs/map.png';
 import commonStyles from '../commonStyles';
 
 export default props => {
+
+    //const [alreadyGranted, setGranted] = useState(false)
 
     const requestGeoPermission = async () => {
         const granted = await PermissionsAndroid.request(
@@ -16,7 +18,7 @@ export default props => {
         }
     };
 
-
+    
     return (
         <SafeAreaView>
             <Image source={Logo} style={styles.logo} />
@@ -29,13 +31,14 @@ export default props => {
                 </View>
                 <TouchableOpacity onPress={() => {
                     requestGeoPermission
-                    props.navigation.navigate('cube')
+                   // props.navigation.navigate('AuthOrProfile')
                 }}
                     style={styles.button}>
                     <Text style={styles.buttonText}>
                         Ativar localização</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.navigation.navigate('home')}
+                <TouchableOpacity onPress={() => 
+                    {props.navigation.navigate('AuthOrProfile')}}
                     style={[styles.button, { width: '70%', backgroundColor: "#FFF", borderColor: commonStyles.colors.primary, borderWidth: 1 }]}>
                     <Text style={{ color: commonStyles.colors.primary, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
                         Não, obrigado.</Text>
