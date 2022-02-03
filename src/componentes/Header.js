@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.semiBold,
         color: commonStyles.colors.title,
         fontSize: 20,
-        marginLeft: 5,
+        marginLeft: 3,
         justifyContent: 'center',
         alignSelf: 'center',
         textAlign: 'center'

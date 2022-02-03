@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
                 setMessage(err.message, 'Erro')
             }
         },
-        login: async function(placa, password) {
+        login: async function(placa, password, props) {
             try {
                 setName('Felipe')
                 setPlaca(placa)

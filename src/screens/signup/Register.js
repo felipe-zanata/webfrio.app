@@ -1,58 +1,143 @@
 import React, { useState } from "react"
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    TextInput
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
 
-import useUser from '../../data/hooks/useUser'
+import useUser from "../../data/hooks/useUser"
+
+import Logo from '../../../assets/imgs/WebFrio.png';
+import commonStyles from '../../commonStyles';
 
 export default props => {
-    const [name, setName] = useState('')
-    const [placa, setPlaca] = useState('')
-    const [password, setPassword] = useState('')
 
-    const { createUser } = useUser()
+    const { placa } = useUser()
+
+    const greetingMessage = () => {
+        let h = new Date().getHours();
+        switch (true) {
+            case h <= 5: return 'Boa madrugada';
+            case h < 12: return 'Bom dia';
+            case h < 18: return 'Boa tarde';
+            default: return 'Boa noite';
+        }
+    }
 
     return (
-        <View style={styles.container}>
-            <TextInput placeholder='Nome' style={styles.input}
-                autoFocus={true} value={name} onChangeText={setName} />
-            <TextInput placeholder='Email' style={styles.input} value={email}
-                keyboardType='email-address' onChangeText={setPlaca} />
-            <TextInput placeholder='Senha' style={styles.input}
-                secureTextEntry={true} value={password} onChangeText={setPassword} />
-            <TouchableOpacity onPress={() => createUser({name, email, password})} style={styles.button}>
-                <Text style={styles.buttonText}>Salvar</Text>
-            </TouchableOpacity>
-        </View>
+        <SafeAreaView style={styles.background}>
+            <Image source={Logo} style={styles.logo} />
+            <ScrollView style={{ width: '100%', height: '100%', alignContent: 'center' }}>
+                <Text style={styles.title}>{greetingMessage}, é um prazer ter você aqui.</Text>
+                <Text style={styles.subtitle}>Sua placa
+                    <Text style={{ fontFamily: commonStyles.fontFamily.semiBold, color: commonStyles.colors.mainText }}>{placa.toLocaleUpperCase()}</Text>
+                    ainda não foi cadastrada.
+                </Text>
+                <Text style={styles.subtitle}>
+                    Para cadastrar são apenas alguns passos, vamos inciar?
+                </Text>
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={() => {props.navigation.navigate('NewUser')}}
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>Cadastrar veículo</Text>
+                    </TouchableOpacity>
+        
+                        <TouchableOpacity onPress={() => {props.navigation.navigate('Login')}}
+                            style={[styles.button, { backgroundColor: null, marginTop: 2 }]}>
+                            <Text style={{ color: commonStyles.colors.primary, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
+                                A Placa está incorreta? Clique aqui</Text>
+                        </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </SafeAreaView >
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
+        width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        alignContent: 'center',
+        justifyContent: 'space-between',
     },
-    button: {
+    Section: {
+        flex: 1,
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        backgroundColor: '#FFF',
+        height: 60,
+        width: '90%',
+        borderRadius: 20,
+        shadowColor: '#171717',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        elevation: 3,
+        marginTop: 10,
+        paddingHorizontal: 15,
+    },
+    logo: {
+        position: 'relative',
+        alignSelf: 'center',
+        marginTop: 20,
+        height: 100,
+        width: '80%',
+        resizeMode: 'stretch',
+    },
+    title: {
+        fontFamily: commonStyles.fontFamily.bold,
+        color: commonStyles.colors.mainText,
+        fontSize: 25,
         marginTop: 30,
+        marginHorizontal: 15,
         padding: 10,
-        backgroundColor: '#4286f4'
+        alignItems: 'center',
+        textAlign: 'center'
     },
-    buttonText: {
+    subtitle: {
+        fontFamily: commonStyles.fontFamily.regular,
+        color: commonStyles.colors.subText,
         fontSize: 20,
-        color: '#FFF'
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    formContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'rgba(245, 245, 245,1)',
+        padding: 5,
+        margin: 10,
+        height: 150,
+        width: '90%',
+        borderRadius: 10,
+        shadowColor: '#171717',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        elevation: 3,
+        alignSelf: 'center',
     },
     input: {
+        flex: 1,
+        flexGrow: 1,
+        alignSelf: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    inputText: {
+        fontFamily: commonStyles.fontFamily.regular,
+        color: commonStyles.colors.subText,
+        fontSize: 20,
+        textAlign: 'left',
+    },
+    button: {
+        backgroundColor: commonStyles.colors.enableBackground,
         marginTop: 20,
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 7,
         width: '90%',
-        backgroundColor: '#EEE',
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#333',
-        paddingLeft: 15
+        alignSelf: 'center',
+    },
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.bold,
+        color: "#FFF",
+        fontSize: 20
     }
-})
+});

@@ -1,25 +1,28 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
 
-import useUser from "../data/hooks/useUser"
+import useUser from "../../data/hooks/useUser"
 
-import Logo from '../../assets/imgs/WebFrio.png';
-import commonStyles from '../commonStyles';
+import Logo from '../../../assets/imgs/WebFrio.png';
+import commonStyles from '../../commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default props => {
-
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const [placa, setPlaca] = useState('')
     const [password, setPassword] = useState('')
-    const { login } = useUser()
 
+    const { createUser } = useUser()
+
+    //validar
     const [hidePass, setHidePass] = useState(true)
     const [showNext, setShowNext] = useState(false)
 
-    const Valid = () =>{
-        if(placa === 'AAA0000'){
-            {props.navigation.navigate('Register')};
-        }else{
+    const Valid = () => {
+        if (placa === 'AAA0000') {
+            { props.navigation.navigate('Register') };
+        } else {
             return login(placa, password, props)
         }
     }
@@ -33,6 +36,17 @@ export default props => {
 
     return (
         <SafeAreaView style={styles.background}>
+            <View style={styles.container}>
+                <TextInput placeholder='Nome' style={styles.input}
+                    autoFocus={true} value={name} onChangeText={setName} />
+                <TextInput placeholder='Email' style={styles.input} value={email}
+                    keyboardType='email-address' onChangeText={setEmail} />
+                <TextInput placeholder='Senha' style={styles.input}
+                    secureTextEntry={true} value={password} onChangeText={setPassword} />
+                <TouchableOpacity onPress={() => createUser({ name, email, password })} style={styles.button}>
+                    <Text style={styles.buttonText}>Salvar</Text>
+                </TouchableOpacity>
+            </View>
             <Image source={Logo} style={styles.logo} />
             <ScrollView style={{ width: '100%', height: '100%', alignContent: 'center' }}>
                 <Text style={styles.title}>{showNext ? 'Bem vindo de volta!' : 'Faça parte desta comunidade'}</Text>
@@ -87,8 +101,8 @@ export default props => {
                     }
                 </View>
                 {/* <TouchableOpacity onPress={() => login('FBB9470', 1234567) }>
-                            <Text style={[styles.subtitle, {fontSize: 15, textAlign: 'left', marginTop: 0}]}>Entra direto</Text>
-                 </TouchableOpacity> */}
+                        <Text style={[styles.subtitle, {fontSize: 15, textAlign: 'left', marginTop: 0}]}>Entra direto</Text>
+             </TouchableOpacity> */}
             </ScrollView>
         </SafeAreaView >
     )
