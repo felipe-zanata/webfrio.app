@@ -1,5 +1,7 @@
-import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity, PermissionsAndroid  } from 'react-native';
+import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { PermissionsAndroid } from 'react-native';
+
 
 import Logo from '../../assets/imgs/WebFrio.png';
 import Map from '../../assets/imgs/map.png';
@@ -14,10 +16,10 @@ export default props => {
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            alert('Acesso concedido');
+            alert('Acesso concedido')
+            props.navigation.navigate('AuthOrProfile')
         }
     };
-
     
     return (
         <SafeAreaView>
@@ -29,10 +31,9 @@ export default props => {
                     <Text style={styles.title}>Ative sua localização para fechar mais cargas</Text>
                     <Text style={styles.subtitle}>Avisamos transportadoras e embarcadores quando motoristas estão mais perto das cargas, assim fica mais fácil para todos.</Text>
                 </View>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity onPress={
                     requestGeoPermission
-                   // props.navigation.navigate('AuthOrProfile')
-                }}
+                }
                     style={styles.button}>
                     <Text style={styles.buttonText}>
                         Ativar localização</Text>

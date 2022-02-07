@@ -13,6 +13,8 @@ export default props => {
         fetchOffer()
     }, [])
 
+    console.warn(...offer)
+
     return (
         <View style={styles.container}>
             <Header />
