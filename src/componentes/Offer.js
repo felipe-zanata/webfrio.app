@@ -5,11 +5,9 @@ import Company from './Company'
 import Comments from './Comments'
 import commonStyles from '../commonStyles'
 
-import useUser from '../data/hooks/useUser'
-
 export default props => {
-
-    const { placa } = useUser()
+    
+    console.warn(props)
 
     return (
         <View style={{flex:1, flexDirection: 'row'}}>

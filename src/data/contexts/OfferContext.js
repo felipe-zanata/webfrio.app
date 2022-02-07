@@ -35,7 +35,7 @@ export const OfferProvider = ({ children }) => {
                 startingUpload()
                 const resStorage = await axios({
                     url: 'uploadImage',
-                    baseURL: 'https://us-central1-instaclone-b78e8.cloudfunctions.net',
+                    baseURL: 'https://webfrio.com/',
                     method: 'post',
                     data: {
                         image: post.image.base64

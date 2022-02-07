@@ -16,11 +16,11 @@ export default props => {
     const [hidePass, setHidePass] = useState(true)
     const [showNext, setShowNext] = useState(false)
 
-    const Valid = () =>{
-        if(placa === 'AAA0000'){
-            {props.navigation.navigate('Register')};
-        }else{
-            return login(placa, password, props)
+    const Valid = () => {
+        if (placa === 'AAA0000') {
+            { props.navigation.navigate('Register', {"placa":placa.toLocaleUpperCase()}) };
+        } else {
+            return setShowNext(!showNext) // login(placa, password, props)
         }
     }
 
@@ -64,7 +64,7 @@ export default props => {
                         </View>
                         : <></>
                     }
-                    <TouchableOpacity onPress={() => showNext ? Valid() : setShowNext(!showNext)}
+                    <TouchableOpacity onPress={() => showNext ? login(placa, password, props) : Valid()}
                         style={[styles.button, ((placa.length >= 7 && !showNext) || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
                         disabled={((!showNext && placa.length >= 7) || validForm) ? false : true}>
                         <Text style={styles.buttonText}>{showNext ? 'Entrar' : 'Próximo'}</Text>

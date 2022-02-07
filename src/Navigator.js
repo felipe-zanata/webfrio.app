@@ -26,9 +26,12 @@ const AuthStack = createStackNavigator()
 const PermissionStack = createStackNavigator()
 
 const routeIcon = {
-    Feed: 'home',
-    AddPhoto: 'camera',
-    Profile: 'person'
+    Home: 'Home',
+    Indicator: 'Bar-chart',
+    Offer: 'Cube',
+    Rate: 'Happy',
+    Offer: 'Cube',
+    Profile: 'Profile',
 }
 
 export default props => {
@@ -69,9 +72,9 @@ export default props => {
                     <Icon name={routeIcon[route.name]} size={size} color={color} />
             })}>
             <Tab.Screen name="Home" component={Home} options={{ tabBarLabel: 'Inicio' }} />
-            <Tab.Screen name="Bar-chart" component={Indicator} options={{ tabBarLabel: 'Status' }} />
-            <Tab.Screen name="Cube" component={OfferList} options={{ tabBarLabel: 'Fretes' }} />
-            <Tab.Screen name="Happy" component={Rate} options={{ tabBarLabel: 'Avaliar' }} />
+            <Tab.Screen name="Indicator" component={Indicator} options={{ tabBarLabel: 'Status' }} />
+            <Tab.Screen name="Offer" component={OfferList} options={{ tabBarLabel: 'Fretes' }} />
+            <Tab.Screen name="Rate" component={Rate} options={{ tabBarLabel: 'Avaliar' }} />
             <Tab.Screen name="Profile" component={Profile} options={{ tabBarLabel: 'Perfil' }} />
         </Tab.Navigator>
     )

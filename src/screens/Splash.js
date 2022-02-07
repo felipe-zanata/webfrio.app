@@ -7,7 +7,7 @@ export default props => {
     const { endSplash } = useEvent()
 
     useEffect(() => {
-        setTimeout(endSplash, 1000)
+        setTimeout(endSplash, 500)
     }, [])
 
     return (
