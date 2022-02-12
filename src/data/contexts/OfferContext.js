@@ -16,7 +16,7 @@ export const OfferProvider = ({ children }) => {
         offer,
         fetchOffer: async function() {
             try {
-                const res = await axios.get('/offer.json')
+                //const res = await axios.get('/offer.json')
                 const rawOffer = {...OfferData}
                 const offerTemp = []
                 for(let key in rawOffer) {

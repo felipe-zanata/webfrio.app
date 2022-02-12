@@ -1,44 +1,64 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
-
-import Logo from '../../../assets/imgs/WebFrio.png';
-import commonStyles from '../../commonStyles';
+import useUser from "../../data/hooks/useUser"
+import Logo from '../../../assets/imgs/WebFrio.png'
+import commonStyles from '../../commonStyles'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default props => {
+    
+    const [password, setPassword] = useState('')
 
-    const { placa } = props.route.params
+    const { createUser } = useUser()
 
-    const greetingMessage = () => {
-        let h = new Date().getHours();
-        switch (true) {
-            case h <= 5: return 'Boa madrugada';
-            case h < 12: return 'Bom dia';
-            case h < 18: return 'Boa tarde';
-            default: return 'Boa noite';
+    //validar
+    const [hidePass, setHidePass] = useState(true)
+
+    const Valid = () => {
+        if (placa === 'AAA0000') {
+            { props.navigation.navigate('Register') };
+        } else {
+            return login(placa, password, props)
         }
     }
+
+    const validations = []
+
+    validations.push(password && password.length >= 6)
+
+    const validForm = validations.reduce((t) => t)
 
     return (
         <SafeAreaView style={styles.background}>
             <Image source={Logo} style={styles.logo} />
             <ScrollView style={{ width: '100%', height: '100%', alignContent: 'center' }}>
-                <Text style={styles.title}>{greetingMessage()}, é um prazer ter você aqui.</Text>
-                <Text style={styles.subtitle}>Sua placa
-                    <Text style={{ fontFamily: commonStyles.fontFamily.semiBold, color: commonStyles.colors.mainText }}> {placa} </Text>
-                    ainda não foi cadastrada.
-                </Text>
-                <Text style={[styles.subtitle,{width:' 70%', alignSelf: 'center'}]}>
-                    Para cadastrar são apenas alguns passos, vamos inciar?
-                </Text>
+                <Text style={styles.title}>Faça parte desta comunidade</Text>
+                <Text style={styles.subtitle}>Informe seus dados</Text>
                 <View style={styles.container}>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('NewUser') }}
-                        style={styles.button}>
-                        <Text style={styles.buttonText}>Cadastrar veículo</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('Login') }}
-                        style={[styles.button, { backgroundColor: null, marginTop: 2 }]}>
-                        <Text style={{ color: commonStyles.colors.primary, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
-                            A Placa está incorreta? Clique aqui</Text>
+                <View style={styles.Section}>
+                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Sua senha'
+                            style={[styles.input, styles.inputText]}
+                            secureTextEntry={hidePass} value={password}
+                            onChangeText={setPassword} />
+                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.Section}>
+                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Confirme sua senha'
+                            style={[styles.input, styles.inputText]}
+                            secureTextEntry={hidePass} value={password}
+                            onChangeText={setPassword} />
+                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity onPress={() => createUser(user)/*  name, email, cellphone, password  */}
+                        style={[styles.button, (password.length >= 6 || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
+                        disabled={(password.length >= 7 || validForm) ? false : true}>
+                        <Text style={styles.buttonText}>Próximo</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

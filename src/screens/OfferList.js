@@ -12,9 +12,7 @@ export default props => {
     useEffect(() => {
         fetchOffer()
     }, [])
-
-    console.warn(...offer)
-
+    
     return (
         <View style={styles.container}>
             <Header />
