@@ -1,14 +1,9 @@
 import React from 'react'
 import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import AddComment from './AddComment'
-import Company from './Company'
-import Comments from './Comments'
 import commonStyles from '../commonStyles'
 
 export default props => {
     
-    console.warn(props)
-
     return (
         <View style={{flex:1, flexDirection: 'row'}}>
             <TouchableOpacity

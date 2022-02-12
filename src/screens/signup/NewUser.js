@@ -1,23 +1,24 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
 
-import useUser from "../../data/hooks/useUser"
+import useUser from '../../data/hooks/useUser'
+import { TextInputMask } from 'react-native-masked-text'
 
 import Logo from '../../../assets/imgs/WebFrio.png';
 import commonStyles from '../../commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default props => {
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [placa, setPlaca] = useState('')
+    const [cellphone, setCellphone] = useState('')
     const [password, setPassword] = useState('')
 
     const { createUser } = useUser()
 
     //validar
     const [hidePass, setHidePass] = useState(true)
-    const [showNext, setShowNext] = useState(false)
 
     const Valid = () => {
         if (placa === 'AAA0000') {
@@ -29,80 +30,63 @@ export default props => {
 
     const validations = []
 
-    validations.push(placa && placa.length >= 7)
-    validations.push(password && password.length >= 6)
+    validations.push(email.length >= 7 && cellphone.length >= 6)
 
-    const validForm = validations.reduce((t, a) => t && a)
+    const validForm = validations.reduce((t) => t)
 
     return (
         <SafeAreaView style={styles.background}>
-            <View style={styles.container}>
-                <TextInput placeholder='Nome' style={styles.input}
-                    autoFocus={true} value={name} onChangeText={setName} />
-                <TextInput placeholder='Email' style={styles.input} value={email}
-                    keyboardType='email-address' onChangeText={setEmail} />
-                <TextInput placeholder='Senha' style={styles.input}
-                    secureTextEntry={true} value={password} onChangeText={setPassword} />
-                <TouchableOpacity onPress={() => createUser({ name, email, password })} style={styles.button}>
-                    <Text style={styles.buttonText}>Salvar</Text>
-                </TouchableOpacity>
-            </View>
             <Image source={Logo} style={styles.logo} />
             <ScrollView style={{ width: '100%', height: '100%', alignContent: 'center' }}>
-                <Text style={styles.title}>{showNext ? 'Bem vindo de volta!' : 'Faça parte desta comunidade'}</Text>
-                <Text style={styles.subtitle}>{!showNext ? 'Informe a placa do veículo' : 'Por favor, agora informe a senha referente à placa: '}
-                    {showNext ?
-                        <Text style={{ fontFamily: commonStyles.fontFamily.semiBold, color: commonStyles.colors.mainText }}>{placa.toLocaleUpperCase()}</Text>
-                        : <></>}</Text>
+                <Text style={styles.title}>Faça parte desta comunidade</Text>
+                <Text style={styles.subtitle}>Informe seus dados</Text>
                 <View style={styles.container}>
                     <View style={styles.Section}>
-                        <Icon name='car' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                        <TextInput placeholder='Digite sua placa' maxLength={7}
+                        <Icon name='person-circle-outline' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Digite seu nome'
                             style={[styles.input, styles.inputText]}
-                            autoFocus={true} editable={!showNext} selectTextOnFocus={!showNext}
-                            value={placa} onChangeText={setPlaca} />
+                            autoFocus={true} value={name} onChangeText={setName} />
                     </View>
-                    {showNext ?
-                        <View style={styles.Section}>
-                            <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                            <TextInput placeholder='Sua senha'
-                                style={[styles.input, styles.inputText]}
-                                secureTextEntry={hidePass} value={password}
-                                onChangeText={setPassword} />
-                            <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
-                                {hidePass ?
-                                    <Icon name='eye' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                                    : <Icon name='eye-off' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                                }
-                            </TouchableOpacity>
-                        </View>
-                        : <></>
-                    }
-                    <TouchableOpacity onPress={() => showNext ? Valid() : setShowNext(!showNext)}
-                        style={[styles.button, ((placa.length >= 7 && !showNext) || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
-                        disabled={((!showNext && placa.length >= 7) || validForm) ? false : true}>
-                        <Text style={styles.buttonText}>{showNext ? 'Entrar' : 'Próximo'}</Text>
+                    <View style={styles.Section}>
+                        <Icon name='mail-outline' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Digite seu email'
+                            style={[styles.input, styles.inputText]}
+                            keyboardType='email-address'
+                            value={email} onChangeText={setEmail} />
+                    </View>
+                    <View style={styles.Section}>
+                        <Icon name='call-outline' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInputMask placeholder='Digite seu telefone'
+                            type={'cel-phone'} options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }}
+                            style={[styles.input, styles.inputText]} keyboardType='phone-pad'
+                            value={cellphone} onChangeText={setCellphone} />
+                    </View>
+                   {/*  <View style={styles.Section}>
+                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Sua senha'
+                            style={[styles.input, styles.inputText]}
+                            secureTextEntry={hidePass} value={password}
+                            onChangeText={setPassword} />
+                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.Section}>
+                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        <TextInput placeholder='Confirme sua senha'
+                            style={[styles.input, styles.inputText]}
+                            secureTextEntry={hidePass} value={password}
+                            onChangeText={setPassword} />
+                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                    </View> */}
+                    <TouchableOpacity onPress={() => props.navigation.navigate('TypeVehicles', { name, email, cellphone, password })/* createUser({ name, email, cellphone, password }) */}
+                        style={[styles.button, (password.length >= 6 || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
+                        disabled={ validForm ? false : true}>
+                        <Text style={styles.buttonText}>Próximo</Text>
                     </TouchableOpacity>
-                    {showNext ?
-                        <TouchableOpacity onPress={() => { }/* Esqueci minha senha */}
-                            style={[styles.button, { width: '70%', backgroundColor: "#FFF", borderColor: commonStyles.colors.primary, borderWidth: 1 }]}>
-                            <Text style={{ color: commonStyles.colors.subText, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
-                                Esqueci minha senha</Text>
-                        </TouchableOpacity>
-                        : <></>
-                    }
-                    {showNext ?
-                        <TouchableOpacity onPress={() => setShowNext(!showNext)}
-                            style={[styles.button, { backgroundColor: null, marginTop: 2 }]}>
-                            <Text style={{ color: commonStyles.colors.primary, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
-                                Não reconheço o cadastro</Text>
-                        </TouchableOpacity>
-                        : <></>
-                    }
                 </View>
-                {/* <TouchableOpacity onPress={() => login('FBB9470', 1234567) }>
-                        <Text style={[styles.subtitle, {fontSize: 15, textAlign: 'left', marginTop: 0}]}>Entra direto</Text>
-             </TouchableOpacity> */}
             </ScrollView>
         </SafeAreaView >
     )

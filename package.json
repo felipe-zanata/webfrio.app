@@ -19,7 +19,9 @@
     "react-native": "0.67.1",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-gravatar": "^1.0.2",
-    "react-native-image-picker": "^4.7.0",
+    "react-native-image-picker": "^4.7.3",
+    "react-native-masked-text": "^1.13.0",
+    "react-native-progress": "^5.0.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
     "react-native-vector-icons": "^9.0.0"

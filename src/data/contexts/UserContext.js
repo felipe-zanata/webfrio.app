@@ -8,8 +8,11 @@ const server = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://192.168
 const UserContext = createContext({})
 
 export const UserProvider = ({ children }) => {
+    
     const [name, setName] = useState('')
     const [placa, setPlaca] = useState('')
+    const [cellphone, setCellphone] = useState('')
+    const [email, setEmail] = useState('')
     const [token, setToken] = useState('')
 
     const { setMessage } = useEvent()
@@ -17,12 +20,15 @@ export const UserProvider = ({ children }) => {
     const userInternalContext = {
         name,
         placa,
+        cellphone,
         token,
         createUser: async user => {
             try {
-                const resNewUser = await axios.post(`${server}/signup`, {
+                userInternalContext.login(user.placa, user.password)
+                /* const resNewUser = await axios.post(`${server}/signup`, {
                     placa: user.placa,
                     password: user.password,
+                    cellphone: user.cellphone,
                     returnSecureToken: true
                 })
                 if(resNewUser.data.localId) {
@@ -30,7 +36,7 @@ export const UserProvider = ({ children }) => {
                         name: user.name
                     })
                     userInternalContext.login(user.placa, user.password)
-                }
+                } */
             } catch (err) {
                 setMessage(err.message, 'Erro')
             }

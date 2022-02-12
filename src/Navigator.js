@@ -1,23 +1,29 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Home from './screens/Home'
 import Indicator from './screens/Indicator'
-import OfferList from './screens/OfferList';
+import OfferList from './screens/OfferList'
 import Rate from './screens/Rate'
 import Profile from './screens/Profile'
+import Details from './screens/Details'
 import Direction from './screens/Direction'
 import Login from './screens/Login'
 import Localization from './screens/Localization'
 import Register from './screens/signup/Register'
 import NewUser from './screens/signup/NewUser'
-import Details from './screens/Details';
+import TypeVehicles from './screens/signup/TypeVehicles'
+import ValidVehicles from './screens/signup/ValidVehicle'
+import Bodywork from './screens/signup/Bodywork'
+import Tracker from './screens/signup/Tracker'
+import PicDoc from './screens/signup/PicDoc'
 
 import useUser from './data/hooks/useUser'
 import commonStyles from './commonStyles';
+import ValidPass from './screens/signup/ValidPass'
 
 
 const Tab = createBottomTabNavigator()
@@ -26,12 +32,11 @@ const AuthStack = createStackNavigator()
 const PermissionStack = createStackNavigator()
 
 const routeIcon = {
-    Home: 'Home',
-    Indicator: 'Bar-chart',
-    Offer: 'Cube',
-    Rate: 'Happy',
-    Offer: 'Cube',
-    Profile: 'Profile',
+    Home: 'home',
+    Indicator: 'bar-chart',
+    Offer: 'cube',
+    Rate: 'happy',
+    Profile: 'person',
 }
 
 export default props => {
@@ -42,26 +47,34 @@ export default props => {
     
     const Permission = () => (
         <PermissionStack.Navigator initialRouteName="Localization" screenOptions={{ headerShown: false }}>
+                    {granted?
                     <PermissionStack.Screen name="AuthOrProfile" component={AuthOrProfile} />
-                    <PermissionStack.Screen name="Localization" component={Localization} />
+                    :<PermissionStack.Screen name="Localization" component={Localization} />
+                    }
         </PermissionStack.Navigator>
     )
 
     const Auth = () => (
         <AuthStack.Navigator initialRouteName="Direction"
             screenOptions={{
-                headerShown: false
+                headerShown: true
             }}>
-            <AuthStack.Screen name="Direction" component={Direction} />
-            <AuthStack.Screen name="Login" component={Login} />
+            <AuthStack.Screen name="Direction" component={Direction} options={{headerShown: false}}/>
+            <AuthStack.Screen name="Login" component={Login} options={{headerShown: false}}/>
             <AuthStack.Screen name="Localization" component={Localization} />
-            <AuthStack.Screen name="Register" component={Register} />
-            <AuthStack.Screen name="NewUser" component={NewUser} />
+            <AuthStack.Screen name="Register" component={Register} options={{headerShown: false, title: 'Tela de cadastro'}} />
+            <AuthStack.Screen name="NewUser" component={NewUser} options={{title: 'Novo usuário'}}/>
+            <AuthStack.Screen name="TypeVehicles" component={TypeVehicles} options={{title: 'Tipo de Veículo'}}/>
+            <AuthStack.Screen name="ValidVehicles" component={ValidVehicles} options={{title: 'Rntrc Carro'}}/>
+            <AuthStack.Screen name="Bodywork" component={Bodywork} options={{title: 'Tipo de carroceria'}}/>
+            <AuthStack.Screen name="Tracker" component={Tracker} options={{title: 'Tem rastreador?'}}/>
+            <AuthStack.Screen name="PicDoc" component={PicDoc} options={{title: 'Foto da CNH'}}/>
+            <AuthStack.Screen name="ValidPass" component={ValidPass} options={{title: 'Criar Senha'}}/>
         </AuthStack.Navigator>
     )
 
     const AuthOrProfile = () => (
-        <Tab.Navigator initialRouteName="Cube"
+        <Tab.Navigator initialRouteName="Offer"
             screenOptions={({ route }) => ({
                 tabBarHideOnKeyboard: true,
                 activeTintColor: commonStyles.colors.primary,
