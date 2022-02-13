@@ -8,7 +8,7 @@ const server = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://192.168
 const UserContext = createContext({})
 
 export const UserProvider = ({ children }) => {
-    
+
     const [name, setName] = useState('')
     const [placa, setPlaca] = useState('')
     const [cellphone, setCellphone] = useState('')
@@ -22,6 +22,19 @@ export const UserProvider = ({ children }) => {
         placa,
         cellphone,
         token,
+        validPlacaAPI: async placa => {
+            const resAuth = await axios.post(`${server}/signin`, {
+                placa,
+                password,
+                returnSecureToken: true
+            })
+            if (resAuth.data.localId) {
+                const res = await axios.get(`/users/${resAuth.data.localId}.json`)
+                setName(res.data.name)
+                setPlaca(placa)
+                setToken(resAuth.data.idToken)
+            }
+        },
         createUser: async user => {
             try {
                 userInternalContext.login(user.placa, user.password)
@@ -41,7 +54,7 @@ export const UserProvider = ({ children }) => {
                 setMessage(err.message, 'Erro')
             }
         },
-        login: async function(placa, password, props) {
+        login: async function (placa, password, props) {
             try {
                 setName('Felipe')
                 setPlaca(placa)
@@ -61,7 +74,7 @@ export const UserProvider = ({ children }) => {
                 setMessage(err.message, 'Erro')
             }
         },
-        logout: function() {
+        logout: function () {
             setName('')
             setPlaca('')
             setToken('')

@@ -20,10 +20,11 @@ import ValidVehicles from './screens/signup/ValidVehicle'
 import Bodywork from './screens/signup/Bodywork'
 import Tracker from './screens/signup/Tracker'
 import PicDoc from './screens/signup/PicDoc'
+import ValidPass from './screens/signup/ValidPass'
+import Complete from './screens/signup/Complete'
 
 import useUser from './data/hooks/useUser'
 import commonStyles from './commonStyles';
-import ValidPass from './screens/signup/ValidPass'
 
 
 const Tab = createBottomTabNavigator()
@@ -70,6 +71,7 @@ export default props => {
             <AuthStack.Screen name="Tracker" component={Tracker} options={{title: 'Tem rastreador?'}}/>
             <AuthStack.Screen name="PicDoc" component={PicDoc} options={{title: 'Foto da CNH'}}/>
             <AuthStack.Screen name="ValidPass" component={ValidPass} options={{title: 'Criar Senha'}}/>
+            <AuthStack.Screen name="Complete" component={Complete} options={{title: 'Cadastro Concluído'}}/>
         </AuthStack.Navigator>
     )
 
