@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, Scro
 import useUser from "../../data/hooks/useUser"
 import Logo from '../../../assets/imgs/WebFrio.png'
 import commonStyles from '../../commonStyles'
+import layoutStyles from '../../layoutStyles'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default props => {
-    
+
     const [password, setPassword] = useState('')
+    const [acceptTerm, setAcceptTerm] = useState(false)
+    const [acceptPolitic, setAcceptPolitic] = useState(false)
 
     const { createUser } = useUser()
 
@@ -24,137 +27,81 @@ export default props => {
 
     const validations = []
 
-    validations.push(password && password.length >= 6)
+    validations.push(password && password.length >= 8)
+    validations.push(acceptTerm && acceptPolitic)
 
-    const validForm = validations.reduce((t) => t)
+    const validForm = validations.reduce((t, a) => t && a)
 
     return (
         <SafeAreaView style={styles.background}>
             <Image source={Logo} style={styles.logo} />
-            <ScrollView style={{ width: '100%', height: '100%', alignContent: 'center' }}>
-                <Text style={styles.title}>Faça parte desta comunidade</Text>
-                <Text style={styles.subtitle}>Informe seus dados</Text>
-                <View style={styles.container}>
-                <View style={styles.Section}>
-                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                        <TextInput placeholder='Sua senha'
-                            style={[styles.input, styles.inputText]}
-                            secureTextEntry={hidePass} value={password}
-                            onChangeText={setPassword} />
-                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
-                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.Section}>
-                        <Icon name='lock-closed' size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                        <TextInput placeholder='Confirme sua senha'
-                            style={[styles.input, styles.inputText]}
-                            secureTextEntry={hidePass} value={password}
-                            onChangeText={setPassword} />
-                        <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
-                            <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity onPress={() => createUser(user)/*  name, email, cellphone, password  */}
-                        style={[styles.button, (password.length >= 6 || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
-                        disabled={(password.length >= 7 || validForm) ? false : true}>
-                        <Text style={styles.buttonText}>Próximo</Text>
+            <ScrollView style={styles.scrollView}>
+                <Text style={styles.title}>Cadastrar sua senha</Text>
+                <Text style={styles.subtitle}>A Senha deve conter ao menos 8 caracteres</Text>
+                <View style={styles.section}>
+                    <Icon name='lock-closed' size={25} style={styles.icon} />
+                    <TextInput placeholder='Sua senha'
+                        style={styles.inputText}
+                        secureTextEntry={hidePass} value={password}
+                        onChangeText={setPassword} />
+                    <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                        <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} style={styles.icon} />
                     </TouchableOpacity>
                 </View>
+                <View style={[styles.section, {marginBottom: 20}]}>
+                    <Icon name='lock-closed' size={25} style={styles.icon} />
+                    <TextInput placeholder='Confirme sua senha'
+                        style={styles.inputText}
+                        secureTextEntry={hidePass} value={password}
+                        onChangeText={setPassword} />
+                    <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+                        <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} style={styles.icon} />
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity style={styles.terms} onPress={() => setAcceptTerm(!acceptTerm)}>
+                    <Icon name={acceptTerm ? 'checkbox-outline' : 'square-outline'} size={25} style={styles.icon} />
+                    <Text style={styles.subtitle}> {`Eu li e concordo com\n os`}
+                        <Text style={styles.buttonHelp}> Termos de uso.</Text>
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.terms} onPress={() => setAcceptPolitic(!acceptPolitic)}>
+                    <Icon name={acceptPolitic ? 'checkbox-outline' : 'square-outline'} size={25} style={styles.icon} />
+                    <Text style={styles.subtitle}> {`Aceito as condições descritas\n na`}
+                        <Text style={styles.buttonHelp}> Política de Privacidade.</Text>
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => createUser(user)}
+                    style={[styles.button,  validForm ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
+                    disabled={validForm ? false : true}>
+                    <Text style={styles.buttonText}>Próximo</Text>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView >
     )
 }
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        width: '100%',
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'space-between',
-    },
-    Section: {
-        flex: 1,
+    background: layoutStyles.background,
+    scrollView: layoutStyles.scrollView,
+    logo: layoutStyles.logo,
+    formContainer: layoutStyles.formContainer,
+    section: layoutStyles.section,
+    title: layoutStyles.title,
+    subtitle: layoutStyles.subtitle,
+    contrastText: layoutStyles.contrastText,
+    inputText: layoutStyles.inputText,
+    button: layoutStyles.button,
+    buttonSecondary: layoutStyles.buttonSecondary,
+    buttonText: layoutStyles.buttonText,
+    buttonTextSecondary: layoutStyles.buttonTextSecondary,
+    buttonHelp: layoutStyles.buttonHelp,
+    icon: layoutStyles.icon,
+    terms: {
         flexDirection: 'row',
-        alignContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        backgroundColor: '#FFF',
-        height: 60,
         width: '90%',
-        borderRadius: 20,
-        shadowColor: '#171717',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        elevation: 3,
         marginTop: 10,
-        paddingHorizontal: 15,
-    },
-    logo: {
-        position: 'relative',
-        alignSelf: 'center',
-        marginTop: 20,
-        height: 100,
-        width: '80%',
-        resizeMode: 'stretch',
-    },
-    title: {
-        fontFamily: commonStyles.fontFamily.bold,
-        color: commonStyles.colors.mainText,
-        fontSize: 25,
-        marginTop: 30,
-        marginHorizontal: 15,
-        padding: 10,
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-    subtitle: {
-        fontFamily: commonStyles.fontFamily.regular,
-        color: commonStyles.colors.subText,
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    formContainer: {
-        flexDirection: 'row',
-        backgroundColor: 'rgba(245, 245, 245,1)',
-        padding: 5,
-        margin: 10,
-        height: 150,
-        width: '90%',
-        borderRadius: 10,
-        shadowColor: '#171717',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        elevation: 3,
-        alignSelf: 'center',
-    },
-    input: {
-        flex: 1,
-        flexGrow: 1,
         alignSelf: 'center',
         alignContent: 'center',
-        alignItems: 'center',
-    },
-    inputText: {
-        fontFamily: commonStyles.fontFamily.regular,
-        color: commonStyles.colors.subText,
-        fontSize: 20,
-        textAlign: 'left',
-    },
-    button: {
-        backgroundColor: commonStyles.colors.enableBackground,
-        marginTop: 20,
-        padding: 10,
-        alignItems: 'center',
-        borderRadius: 7,
-        width: '90%',
-        alignSelf: 'center',
-    },
-    buttonText: {
-        fontFamily: commonStyles.fontFamily.bold,
-        color: "#FFF",
-        fontSize: 20
+        alignItems: 'flex-start'
     }
 });

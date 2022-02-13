@@ -6,7 +6,7 @@ export default props => {
 
     return (
         <View style={styles.formContainer}>
-            <TouchableOpacity style={styles.Section} onPress={() => { }} >
+            <TouchableOpacity style={styles.section} onPress={() => { }} >
                 <Icon name={props.icon} size={25} color={commonStyles.colors.secondary} style={{ marginRight: 10 }} />
                 <Text style={styles.subtitle}>{props.name}</Text>
             </TouchableOpacity>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         //justifyContent: 'space-between',
     },
-    Section: {
+    section: {
         flex: 1,
         flexDirection: 'row',
         alignContent: 'center',

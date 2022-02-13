@@ -42,14 +42,10 @@ export default {
         },
         {
             id: 17,
-            name: 'VLC',
-        },
-        {
-            id: 18,
             name: '3/4',
         },
         {
-            id: 19,
+            id: 18,
             name: 'Toco',
         },
     ]

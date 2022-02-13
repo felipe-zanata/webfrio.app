@@ -11,19 +11,38 @@ export default props => {
 
     const { name, placa } = useUser()
 
+    const [score, setScore] = useState(0)
+
+    const getImagem = (index) => {
+        if (index < score) {
+            return Star
+        }
+        return NoStar
+    }
+
+    const RenderStars = () => {
+        const starList = []
+
+        const scoreMath = Math.floor(Math.random() * (5 - 1 + 1) + 1)
+        setScore(scoreMath)
+
+        for (let i = 0; i < 5; i++) {
+            listaEstrelas.push(
+                <Image key={i} source={getImagem(index)} style={estilos.estrela} />
+            )
+        }
+        return starList
+    }
+
     return (
         <View style={styles.container}>
             <Image source={Logo} style={styles.imageLogo} />
             <View style={styles.userContainer}>
                 <Text style={styles.user}>{name + ' - ' + placa}</Text>
-                    <View style={styles.rowContainer}>
-                        <Image source={Star} style={styles.image} />
-                        <Image source={Star} style={styles.image} />
-                        <Image source={Star} style={styles.image} />
-                        <Image source={NoStar} style={styles.image} />
-                        <Image source={NoStar} style={styles.image} />
-                        <Text style={[styles.user]}>3.0</Text>
-                    </View>
+                <View style={styles.rowContainer}>
+                    <RenderStars />
+                    <Text style={styles.user}>{score}</Text>
+                </View>
 
             </View>
         </View>

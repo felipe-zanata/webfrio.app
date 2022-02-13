@@ -1,12 +1,10 @@
 import React, { useState } from "react"
 import { 
-    Alert, 
     View, 
     StyleSheet, 
     ScrollView, 
     Image, 
     Text, 
-    TextInput, 
     Dimensions,
     TouchableOpacity 
 } from "react-native";
@@ -18,7 +16,6 @@ import useEvent from '../data/hooks/useEvent';
 
 export default props => {
     const [image, setImage] = useState(null) 
-    const [comment, setComment] = useState('')
 
     const { addOffer } = useOffer()
     const { name: nickname, email } = useUser()
@@ -66,8 +63,6 @@ export default props => {
 
     useEffectIf(() => {
         setImage(null)
-        setComment('')
-        props.navigation.navigate('Feed')
     }, uploading, false)
 
     return (
@@ -78,18 +73,15 @@ export default props => {
                     <Image source={image} style={styles.image} />
                 </View>
                 <View style={styles.buttonRow}>
-                    <TouchableOpacity onPress={pickPhoto} disabled={!canEdit()}
+                    <TouchableOpacity onPress={pickPhoto} 
                             style={[styles.button, canEdit()? {}: styles.buttonDisabled]}>
                         <Text style={styles.buttonText}>Tirar uma foto</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={pickImage} disabled={!canEdit()} 
+                    <TouchableOpacity onPress={pickImage}  
                             style={[styles.button, canEdit()? {}: styles.buttonDisabled]}>
                         <Text style={styles.buttonText}>Escolha a foto</Text>
                     </TouchableOpacity>
                 </View>
-                <TextInput placeholder='Algum comentário para a foto?'
-                    style={styles.input} value={comment}
-                    onChangeText={setComment} editable={canEdit()} />
                 <TouchableOpacity onPress={save} disabled={!canEdit()}
                     style={[styles.button, canEdit()? {}: styles.buttonDisabled]} >
                     <Text style={styles.buttonText}>Salvar</Text>
