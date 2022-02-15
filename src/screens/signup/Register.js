@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
 
 import Logo from '../../../assets/imgs/WebFrio.png';
@@ -6,12 +6,16 @@ import layoutStyles from "../../layoutStyles";
 
 export default props => {
 
-    try {
-        const { placa } = props.route.params
-    } catch (e) {
-        placa = 'AAA0000'
-    }
+    const { placa } = props.route.params
 
+    initialState = {}
+
+    const [userData, setUserData] = useState(initialState);
+    
+    useEffect(() => {
+        setUserData({ ...userData, "placa": placa })
+    },[])
+    
     const greetingMessage = () => {
         let h = new Date().getHours();
         switch (true) {
@@ -35,7 +39,7 @@ export default props => {
                 <Text style={styles.subtitle}>
                     {`Para cadastrar são apenas \n alguns passos, vamos inciar?`}
                 </Text>
-                <TouchableOpacity onPress={() => { props.navigation.navigate('NewUser') }}
+                <TouchableOpacity onPress={() => { props.navigation.navigate('NewUser', userData) }}
                     style={styles.button}>
                     <Text style={styles.buttonText}>Cadastrar veículo</Text>
                 </TouchableOpacity>

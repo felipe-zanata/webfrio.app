@@ -25,6 +25,7 @@ import Complete from './screens/signup/Complete'
 
 import useUser from './data/hooks/useUser'
 import commonStyles from './commonStyles';
+import CreateError from './screens/signup/CreateError'
 
 
 const Tab = createBottomTabNavigator()
@@ -45,13 +46,11 @@ export default props => {
     const { placa } = useUser()
 
     const granted = false
-    
+
     const Permission = () => (
         <PermissionStack.Navigator initialRouteName="Localization" screenOptions={{ headerShown: false }}>
-                    {granted?
-                    <PermissionStack.Screen name="AuthOrProfile" component={AuthOrProfile} />
-                    :<PermissionStack.Screen name="Localization" component={Localization} />
-                    }
+            <PermissionStack.Screen name="HomeTab" component={HomeTab} />
+            <PermissionStack.Screen name="Localization" component={Localization} />
         </PermissionStack.Navigator>
     )
 
@@ -60,22 +59,23 @@ export default props => {
             screenOptions={{
                 headerShown: true
             }}>
-            <AuthStack.Screen name="Direction" component={Direction} options={{headerShown: false}}/>
-            <AuthStack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-            <AuthStack.Screen name="Localization" component={Localization} />
-            <AuthStack.Screen name="Register" component={Register} options={{headerShown: false, title: 'Tela de cadastro'}} />
-            <AuthStack.Screen name="NewUser" component={NewUser} options={{title: 'Novo usuário'}}/>
-            <AuthStack.Screen name="TypeVehicles" component={TypeVehicles} options={{title: 'Tipo de Veículo'}}/>
-            <AuthStack.Screen name="ValidVehicles" component={ValidVehicles} options={{title: 'Rntrc Carro'}}/>
-            <AuthStack.Screen name="Bodywork" component={Bodywork} options={{title: 'Tipo de carroceria'}}/>
-            <AuthStack.Screen name="Tracker" component={Tracker} options={{title: 'Tem rastreador?'}}/>
-            <AuthStack.Screen name="PicDoc" component={PicDoc} options={{title: 'Foto da CNH'}}/>
-            <AuthStack.Screen name="ValidPass" component={ValidPass} options={{title: 'Criar Senha'}}/>
-            <AuthStack.Screen name="Complete" component={Complete} options={{title: 'Cadastro Concluído'}}/>
+            <AuthStack.Screen name="Direction" component={Direction} options={{ headerShown: false }} />
+            <AuthStack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <AuthStack.Screen name="Register" component={Register} options={{ headerShown: false, title: 'Tela de cadastro' }} />
+            <AuthStack.Screen name="NewUser" component={NewUser} options={{ title: 'Novo usuário' }} />
+            <AuthStack.Screen name="TypeVehicles" component={TypeVehicles} options={{ title: 'Tipo de Veículo' }} />
+            <AuthStack.Screen name="ValidVehicles" component={ValidVehicles} options={{ title: 'Rntrc Carro' }} />
+            <AuthStack.Screen name="Bodywork" component={Bodywork} options={{ title: 'Tipo de carroceria' }} />
+            <AuthStack.Screen name="Tracker" component={Tracker} options={{ title: 'Tem rastreador?' }} />
+            <AuthStack.Screen name="PicDoc" component={PicDoc} options={{ title: 'Foto da CNH' }} />
+            <AuthStack.Screen name="ValidPass" component={ValidPass} options={{ title: 'Criar Senha' }} />
+            <AuthStack.Screen name="Complete" component={Complete} options={{ title: 'Cadastro Concluído', headerShown: false}} />
+            <AuthStack.Screen name="CreateError" component={CreateError} options={{ title: 'Erro',headerShown: false }} />
+            <AuthStack.Screen name="Permission" component={Permission} options={{ headerShown: false }}/>
         </AuthStack.Navigator>
     )
 
-    const AuthOrProfile = () => (
+    const HomeTab = () => (
         <Tab.Navigator initialRouteName="Offer"
             screenOptions={({ route }) => ({
                 tabBarHideOnKeyboard: true,

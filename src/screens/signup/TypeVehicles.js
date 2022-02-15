@@ -16,6 +16,13 @@ export default props => {
 
     const [selected, setSelected] = useState(null);
 
+    const propsData = props.route.params
+
+    const addUserData = () => {
+        const userData = { ...propsData, "tipo_veiculo": selected?.name, "tipo_veiculo_id": selected?.id }
+        props.navigation.navigate('ValidVehicles', userData)
+    }
+
     const titleList = (name) => {
         switch (name) {
             case 'hv':
@@ -77,7 +84,7 @@ export default props => {
                     )}
                 />
             </View>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('ValidVehicles') }}
+            <TouchableOpacity onPress={() => addUserData()}
                 style={styles.button}>
                 <Text style={styles.buttonText}>Próximo</Text>
             </TouchableOpacity>
@@ -87,14 +94,14 @@ export default props => {
 
 const styles = StyleSheet.create({
     background: layoutStyles.background,
-    scrollView: [layoutStyles.scrollView, { flex: 1}],
+    scrollView: [layoutStyles.scrollView, { flex: 1 }],
     logo: layoutStyles.logo,
     title: [layoutStyles.title, { fontSize: 18, marginTop: 0, textAlign: 'left', padding: 5, }],
     subtitle: [layoutStyles.subtitle, { fontSize: 15, textAlign: 'left', paddingTop: 5 }],
     contrastText: layoutStyles.contrastText,
-    button: [layoutStyles.button, {marginBottom: 5, marginTop: 5}],
+    button: [layoutStyles.button, { marginBottom: 5, marginTop: 5 }],
     buttonText: layoutStyles.buttonText,
     icon: layoutStyles.icon,
     sectionForm: layoutStyles.sectionForm,
-    section: [layoutStyles.section, {height: 40, marginTop: 0, margin: 4}],
+    section: [layoutStyles.section, { height: 40, marginTop: 0, margin: 4 }],
 });

@@ -22,7 +22,6 @@ export default {
     },
     formContainer: {
         backgroundColor: commonStyles.colors.backgroundForm,
-        flex: 1,
         flexDirection: 'row',
         alignSelf: 'center',
         padding: 5,
@@ -68,7 +67,6 @@ export default {
         marginTop: 30,
         marginHorizontal: 15,
         padding: 10,
-        alignItems: 'center',
         textAlign: 'center'
     },
     subtitle: {
