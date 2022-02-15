@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, use } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Image } from 'react-native'
 
 import { TextInputMask } from 'react-native-masked-text'
@@ -13,6 +13,13 @@ export default props => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [cellphone, setCellphone] = useState('')
+
+    const propsData = props.route.params
+    
+    const addUserData = () => {
+        const userData = { ...propsData, "nome": name, "email": email, "telefone": cellphone }
+        props.navigation.navigate('TypeVehicles', userData)
+    }
 
     const validations = []
 
@@ -40,12 +47,12 @@ export default props => {
                 </View>
                 <View style={styles.section}>
                     <Icon name='call-outline' size={25} style={styles.icon} />
-                    <TextInputMask placeholder='Digite seu telefone' keyboardType='phone-pad'
+                    <TextInputMask placeholder='Digite seu telefone' keyboardType='number-pad'
                         type={'cel-phone'} options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }}
                         style={styles.inputText}
                         value={cellphone} onChangeText={setCellphone} />
                 </View>
-                <TouchableOpacity onPress={() => props.navigation.navigate('TypeVehicles', { name, email, cellphone })}
+                <TouchableOpacity onPress={() => addUserData()}
                     style={[styles.button, (validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
                     disabled={validForm ? false : true}>
                     <Text style={styles.buttonText}>Próximo</Text>

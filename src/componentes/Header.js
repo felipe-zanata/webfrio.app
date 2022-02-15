@@ -6,6 +6,7 @@ import Star from '../../assets/imgs/star.png'
 
 import useUser from '../data/hooks/useUser'
 import commonStyles from '../commonStyles'
+import layoutStyles from '../layoutStyles'
 
 export default props => {
 
@@ -13,8 +14,8 @@ export default props => {
 
     const [score, setScore] = useState(0)
 
-    const getImagem = (index) => {
-        if (index < score) {
+    const getImagem = (i) => {
+        if (i < score) {
             return Star
         }
         return NoStar
@@ -27,8 +28,8 @@ export default props => {
         setScore(scoreMath)
 
         for (let i = 0; i < 5; i++) {
-            listaEstrelas.push(
-                <Image key={i} source={getImagem(index)} style={estilos.estrela} />
+            starList.push(
+                <Image key={i} source={getImagem(i)} style={styles.image} />
             )
         }
         return starList
@@ -38,7 +39,7 @@ export default props => {
         <View style={styles.container}>
             <Image source={Logo} style={styles.imageLogo} />
             <View style={styles.userContainer}>
-                <Text style={styles.user}>{name + ' - ' + placa}</Text>
+                <Text style={styles.user}>{name? name : 'Felipe' + ' - ' + placa? placa : 'FBB-9470'}</Text>
                 <View style={styles.rowContainer}>
                     <RenderStars />
                     <Text style={styles.user}>{score}</Text>

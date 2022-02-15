@@ -14,15 +14,13 @@ export default props => {
 
     const { createUser } = useUser()
 
-    //validar
     const [hidePass, setHidePass] = useState(true)
 
-    const Valid = () => {
-        if (placa === 'AAA0000') {
-            { props.navigation.navigate('Register') };
-        } else {
-            return login(placa, password, props)
-        }
+    const propsData = props.route.params
+
+    const addUserData = () => {
+        const userData = { ...propsData, "senha": password }
+        createUser(userData, props)
     }
 
     const validations = []
@@ -48,7 +46,7 @@ export default props => {
                         <Icon name={hidePass ? 'eye' : 'eye-off'} size={25} style={styles.icon} />
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.section, {marginBottom: 20}]}>
+                <View style={[styles.section, { marginBottom: 20 }]}>
                     <Icon name='lock-closed' size={25} style={styles.icon} />
                     <TextInput placeholder='Confirme sua senha'
                         style={styles.inputText}
@@ -70,8 +68,8 @@ export default props => {
                         <Text style={styles.buttonHelp}> Política de Privacidade.</Text>
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => createUser(user)}
-                    style={[styles.button,  validForm ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
+                <TouchableOpacity onPress={() => addUserData()}
+                    style={[styles.button, validForm ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
                     disabled={validForm ? false : true}>
                     <Text style={styles.buttonText}>Próximo</Text>
                 </TouchableOpacity>

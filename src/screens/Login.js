@@ -59,9 +59,9 @@ export default props => {
                     </View>
                     : <></>
                 }
-                <TouchableOpacity onPress={() => showNext ? login(placa, password, props) : Valid()}
-                    style={[styles.button, ((placa.length >= 8 && !showNext) || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
-                    disabled={((!showNext && placa.length >= 8) || validForm) ? false : true}>
+                <TouchableOpacity onPress={() => showNext ? login(placa, password, props) : ValidPlaca()}
+                    style={[styles.button, ((placa.length >= 7 && !showNext) || validForm) ? {} : { backgroundColor: commonStyles.colors.disableBackground }]}
+                    disabled={((!showNext && placa.length >= 7) || validForm) ? false : true}>
                     <Text style={styles.buttonText}>{showNext ? 'Entrar' : 'Próximo'}</Text>
                 </TouchableOpacity>
                 {showNext ?

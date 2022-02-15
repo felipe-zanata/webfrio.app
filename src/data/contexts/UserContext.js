@@ -3,7 +3,9 @@ import axios from 'axios'
 
 import useEvent from '../hooks/useEvent'
 
-const server = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://192.168.15.15:3000'
+//const server = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://192.168.15.15:3000'
+
+const server = 'http://webfrio.com.br/webfrio/api/v1/motoristas/'
 
 const UserContext = createContext({})
 
@@ -26,32 +28,40 @@ export const UserProvider = ({ children }) => {
             const resAuth = await axios.post(`${server}/signin`, {
                 placa,
                 password,
-                returnSecureToken: true
+                return_secure_token: true
             })
-            if (resAuth.data.localId) {
-                const res = await axios.get(`/users/${resAuth.data.localId}.json`)
+            if (resAuth.data.id) {
+                const res = await axios.get(`${resAuth.data.id}.json`)
                 setName(res.data.name)
                 setPlaca(placa)
-                setToken(resAuth.data.idToken)
+                setToken(resAuth.data.id_token)
             }
         },
-        createUser: async user => {
+        createUser: async function(userData, props) {
             try {
-                userInternalContext.login(user.placa, user.password)
-                /* const resNewUser = await axios.post(`${server}/signup`, {
-                    placa: user.placa,
-                    password: user.password,
-                    cellphone: user.cellphone,
-                    returnSecureToken: true
+                const resNewUser = await axios.post(server, {
+                    ...userData,
+                    tipo: 1,
+                    cpf: "123.456.789-42",
+                    estado: "SP",
+                    cidade: "Jundiaí",
+                    endereco: "av. teste, 1234",
+                    data_nascimento: "2000-01-01",
+                    return_secure_token: true
                 })
-                if(resNewUser.data.localId) {
-                    await axios.put(`/users/${resNewUser.data.localId}.json`, {
-                        name: user.name
+                /* if (resNewUser.id) {
+                    await axios.put(`${resNewUser.id}.json`, {
+                        name: userData.name
                     })
-                    userInternalContext.login(user.placa, user.password)
                 } */
+                console.log('res = ',resNewUser)
+                props.navigation.navigate('Complete')
+                //userInternalContext.login(resNewUser.placa, resNewUser.senha)
+
             } catch (err) {
-                setMessage(err.message, 'Erro')
+                //setMessage(err.message, 'Erro')
+                console.log('Erro =', err)
+                props.navigation.navigate('CreateError')
             }
         },
         login: async function (placa, password, props) {

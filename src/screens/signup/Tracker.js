@@ -21,6 +21,13 @@ export default props => {
 
     const [selected, setSelected] = useState(null);
 
+    const propsData = props.route.params
+
+    const addUserData = () => {
+        const userData = { ...propsData, "rastreador": selected?.name }
+        props.navigation.navigate('PicDoc', userData)
+    }
+
     const titleList = () => {
         return <Text style={styles.title}>Tem rastreador no veículo?</Text>
     }
@@ -44,7 +51,7 @@ export default props => {
                     )}
                 />
             </View>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('PicDoc') }}
+            <TouchableOpacity onPress={() => addUserData()}
                 style={styles.button}>
                 <Text style={styles.buttonText}>Próximo</Text>
             </TouchableOpacity>

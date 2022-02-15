@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { PermissionsAndroid } from 'react-native';
 
 
@@ -9,15 +9,13 @@ import commonStyles from '../commonStyles';
 
 export default props => {
 
-    //const [alreadyGranted, setGranted] = useState(false)
-
     const requestGeoPermission = async () => {
         const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             alert('Acesso concedido')
-            props.navigation.navigate('AuthOrProfile')
+            props.navigation.navigate('HomeTab')
         }
     };
     
@@ -39,7 +37,7 @@ export default props => {
                         Ativar localização</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => 
-                    {props.navigation.navigate('AuthOrProfile')}}
+                    {props.navigation.navigate('HomeTab')}}
                     style={[styles.button, { width: '70%', backgroundColor: "#FFF", borderColor: commonStyles.colors.primary, borderWidth: 1 }]}>
                     <Text style={{ color: commonStyles.colors.primary, fontSize: 20, fontFamily: commonStyles.fontFamily.regular }}>
                         Não, obrigado.</Text>

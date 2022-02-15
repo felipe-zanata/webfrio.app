@@ -1,0 +1,18 @@
+GET  http://webfrio.com.br/webfrio/api/v1/motoristas/
+
+###
+
+POST http://webfrio.com.br/webfrio/api/v1/motoristas/ 
+Content-Type: application/json
+
+{
+    "nome": "teste",
+    "placa": "teste",
+    "tipo": 1,
+    "cpf": "123.456.789-42",
+    "estado": "SP",
+    "cidade": "Jundiaí",
+    "endereco": "av. teste, 1234",
+    "rntrc": "21",
+    "data_nascimento": "2000-01-01"
+}

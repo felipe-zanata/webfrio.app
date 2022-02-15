@@ -4,6 +4,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { SafeAreaView, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
 import Logo from '../../../assets/imgs/WebFrio.png';
+import Cnh from '../../../assets/imgs/cnh.png';
 import layoutStyles from '../../layoutStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -14,18 +15,18 @@ export default props => {
       const granted = PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
         {
-          title: "App Camera Permission",
-          message: "App needs access to your camera ",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
+          title: "Permissão para acesso câmera",
+          message: "Precisamos confirmar seus dados da CNH",
+          buttonNeutral: "Me pergunte depois",
+          buttonNegative: "Cancelar",
+          buttonPositive: "Aceitar"
         }
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("Camera permission given");
+        console.log("Acesso concedido");
         openPicker()
       } else {
-        console.log("Camera permission denied");
+        console.log("Acesso negado");
       }
     } catch (err) {
       console.warn(err);
@@ -33,6 +34,13 @@ export default props => {
   }, [])
 
   const [imageUri, setImageUri] = useState(null)
+
+  const propsData = props.route.params
+
+  const addUserData = () => {
+    const userData = { ...propsData, "imagem": imageUri.uri }
+    props.navigation.navigate('ValidPass', userData)
+  }
 
   const openPicker = () => {
 
@@ -48,15 +56,14 @@ export default props => {
     };
 
     launchCamera(options, (response) => {
-      console.log('Response = ', response);
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log('Usuário cancelou');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.assets[0].uri, base64: response.assets[0].base64 }
+        const source = { uri: response.assets[0].uri/* , base64: response.assets[0].base64 */ }
         setImageUri(source)
       }
     });
@@ -66,7 +73,7 @@ export default props => {
     const options = {
       mediaType: 'photo',
       includeBase64: true,
-      maxHeight: 500,
+      maxHeight: 600,
       maxWidth: 300,
       storageOptions: {
         skipBackup: true,
@@ -75,16 +82,15 @@ export default props => {
     };
 
     launchImageLibrary(options, (response) => {
-      console.log({ response })
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log('Usuário cancelou');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        const source = { uri: response.assets[0].uri, base64: response.assets[0].base64 }
+        const source = { uri: response.assets[0].uri/* , base64: response.assets[0].base64  */ }
         setImageUri(source)
       }
     });
@@ -98,7 +104,7 @@ export default props => {
       />
     } else {
       return <Image
-        source={require('../../../assets/imgs/WebFrio_BG.png')}
+        source={Cnh}
         style={styles.images}
       />
     }
@@ -107,42 +113,40 @@ export default props => {
   return (
     <SafeAreaView style={styles.background}>
       <Image source={Logo} style={styles.logo} />
-      <View style={styles.scrollView}>
-        <Text style={styles.title} >Tire a foto da sua carteira de Motorista (CNH)</Text>
-        {renderFileUri()}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-          <TouchableOpacity onPress={openPicker}
-            style={styles.buttonSecondary}>
-            <Icon name='camera-outline' size={25} style={styles.icon} />
-            <Text style={styles.buttonTextSecondary}>Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={selectLibrary}
-            style={styles.buttonSecondary}>
-            <Icon name='images-outline' size={25} style={styles.icon} />
-            <Text style={styles.buttonTextSecondary}>Galeria</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={() => { props.navigation.navigate('ValidPass') }}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Próximo</Text>
+      <Text style={styles.title} >Tire a foto da sua carteira de Motorista (CNH)</Text>
+      {renderFileUri()}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+        <TouchableOpacity onPress={openPicker}
+          style={styles.buttonSecondary}>
+          <Icon name='camera-outline' size={25} style={styles.icon} />
+          <Text style={styles.buttonTextSecondary}>Camera</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={selectLibrary}
+          style={styles.buttonSecondary}>
+          <Icon name='images-outline' size={25} style={styles.icon} />
+          <Text style={styles.buttonTextSecondary}>Galeria</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={() => addUserData()}
+        style={styles.button}>
+        <Text style={styles.buttonText}>Próximo</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: layoutStyles.scrollView,
+  background: layoutStyles.background,
   logo: layoutStyles.logo,
   title: [layoutStyles.title, { marginTop: 10, fontSize: 20 }],
   button: layoutStyles.button,
-  buttonSecondary: [layoutStyles.buttonSecondary, { width: '40%', flexDirection: 'row' }],
+  buttonSecondary: [layoutStyles.buttonSecondary, { width: '40%', flexDirection: 'row', margin: 5 }],
   buttonText: layoutStyles.buttonText,
   buttonTextSecondary: [layoutStyles.buttonTextSecondary, { textAlign: 'left', alignContent: 'center', marginLeft: 5 }],
   icon: layoutStyles.icon,
   images: {
-    height: Dimensions.get('window').height / 2,
-    width: '90%',
+    height: Dimensions.get('window').height / 2.5,
+    width: '80%',
     alignSelf: 'center',
     resizeMode: 'contain',
   }
