@@ -19,7 +19,7 @@ export default props => {
     const propsData = props.route.params
 
     const addUserData = () => {
-        const userData = { ...propsData, "tipo_veiculo": selected?.name, "tipo_veiculo_id": selected?.id }
+        const userData = { ...propsData, "tipo_veiculo_nome": selected?.name, "tipo_veiculo": selected?.id }
         props.navigation.navigate('ValidVehicles', userData)
     }
 

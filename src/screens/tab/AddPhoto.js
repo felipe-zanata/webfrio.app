@@ -8,11 +8,11 @@ import {
     Dimensions,
     TouchableOpacity 
 } from "react-native";
-import useEffectIf from "../hooks/UseEffectIf";
+import useEffectIf from "../../hooks/UseEffectIf";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import useOffer from '../data/hooks/useOffer'
-import useUser from '../data/hooks/useUser'
-import useEvent from '../data/hooks/useEvent';
+import useOffer from '../../data/hooks/useOffer'
+import useUser from '../../data/hooks/useUser'
+import useEvent from '../../data/hooks/useEvent';
 
 export default props => {
     const [image, setImage] = useState(null) 

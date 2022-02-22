@@ -3,7 +3,7 @@ import React from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Gravatar } from 'react-native-gravatar'
 
-import useUser from "../data/hooks/useUser"
+import useUser from "../../data/hooks/useUser"
 
 export default props => {
     

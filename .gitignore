@@ -58,3 +58,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Rest Client
+rest-client/
+webfrio-api.http
