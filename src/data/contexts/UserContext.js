@@ -37,24 +37,29 @@ export const UserProvider = ({ children }) => {
                 setToken(resAuth.data.id_token)
             }
         },
-        createUser: async function(userData, props) {
+        createUser: async function (userData, props) {
             try {
                 const resNewUser = await axios.post(server, {
                     ...userData,
-                    tipo: 1,
-                    cpf: "123.456.789-42",
-                    estado: "SP",
-                    cidade: "Jundiaí",
-                    endereco: "av. teste, 1234",
-                    data_nascimento: "2000-01-01",
-                    return_secure_token: true
+                    placa: "AAA1234",
+                    tipo_veiculo: "1",
+                    carroceria: "1",
+                    rastreador: true,
+                    marca: "1",
+                    modelo: "1",
+                    ano: "2015",
+                    seguro: true,
+                    capacidade_maxima: "500.0",
+                    permissionado: true,
+                    cnh: "222333444555",
+                    senha: "abcdf123"
                 })
                 /* if (resNewUser.id) {
                     await axios.put(`${resNewUser.id}.json`, {
                         name: userData.name
                     })
                 } */
-                console.log('res = ',resNewUser)
+                console.log('res = ', resNewUser)
                 props.navigation.navigate('Complete')
                 //userInternalContext.login(resNewUser.placa, resNewUser.senha)
 

@@ -17,7 +17,7 @@ export default props => {
     const propsData = props.route.params
 
     const addUserData = () => {
-        const userData = { ...propsData, "tipo_carroceria": selected?.name, "tipo_carroceria_id": selected?.id }
+        const userData = { ...propsData, "tipo_carroceria_nome": selected?.name, "carroceria": selected?.id }
         props.navigation.navigate('Tracker', userData)
     }
 
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
     scrollView: layoutStyles.scrollView,
     logo: [layoutStyles.logo, { marginBottom: 50 }],
     title: [layoutStyles.title, { fontSize: 18, marginTop: 0, textAlign: 'left', padding: 5, }],
-    subtitle: [layoutStyles.subtitle, { fontSize: 15, textAlign: 'left', paddingTop: 5 }],
+    subtitle: [layoutStyles.subtitle, { fontSize: 15, textAlign: 'left', paddingTop: 5}],
     contrastText: layoutStyles.contrastText,
     button: [layoutStyles.button, { marginBottom: 5, marginTop: 5 }],
     buttonText: layoutStyles.buttonText,
     icon: layoutStyles.icon,
     sectionForm: layoutStyles.sectionForm,
-    section: [layoutStyles.section, { height: 40, marginTop: 0, margin: 4 }],
+    section: [layoutStyles.section, { height: 40, marginTop: 0, margin: 5 }],
 });

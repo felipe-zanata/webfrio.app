@@ -1,8 +1,8 @@
-GET  http://webfrio.com.br/webfrio/api/v1/motoristas/
+GET  http://webfrio.com.br/api/v1/motoristas/
 
 ###
 
-POST http://webfrio.com.br/webfrio/api/v1/motoristas/ 
+POST http://webfrio.com.br/api/v1/motoristas/ 
 Content-Type: application/json
 
 {
@@ -15,4 +15,41 @@ Content-Type: application/json
     "endereco": "av. teste, 1234",
     "rntrc": "21",
     "data_nascimento": "2000-01-01"
+}
+
+###
+
+GET  http://webfrio.com.br/api/v1/veiculos/
+
+###
+
+POST http://webfrio.com.br/webfrio/api/v1/veiculos/
+
+{
+    "placa" : "AAA1234",
+    "tipo_veiculo" : 1,
+    "carroceria": 1,
+    "rastreador": true,
+    "marca": 1,
+    "modelo": 1,
+    "ano": "2015",
+    "seguro": true,
+    "capacidade_maxima": "500.0",
+    "permissionado": true,
+    "cnh": "222333444555",
+    "senha" : "abcdf123"
+
+}
+
+###
+
+POST http://webfrio.com.br/webfrio/api/v1/veiculos/
+{   
+    tipo: 1,
+    cpf: "123.456.789-42",
+    estado: "SP",
+    cidade: "Jundiaí",
+    endereco: "av. teste, 1234",
+    data_nascimento: "2000-01-01",
+    return_secure_token: true
 }

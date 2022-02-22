@@ -24,7 +24,7 @@ export default props => {
     const propsData = props.route.params
 
     const addUserData = () => {
-        const userData = { ...propsData, "rastreador": selected?.name }
+        const userData = { ...propsData, "rastreador": selected?.id == 1 ? true : false }
         props.navigation.navigate('PicDoc', userData)
     }
 
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     button: [layoutStyles.button, { marginBottom: 5, marginTop: 5 }],
     buttonText: layoutStyles.buttonText,
     icon: layoutStyles.icon,
-    sectionForm: layoutStyles.sectionForm,
+    sectionForm: [layoutStyles.sectionForm, {padding: 10}],
     section: [layoutStyles.section, { height: 40, marginTop: 0, margin: 4 }],
 });

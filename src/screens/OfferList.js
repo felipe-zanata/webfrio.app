@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { FlatList, Image, StyleSheet, View } from 'react-native'
 import Header from '../componentes/Header'
 import Offer from '../componentes/Offer'
+import layoutStyles from "../layoutStyles"
 
 import useOffer from '../data/hooks/useOffer'
 
@@ -14,7 +15,7 @@ export default props => {
     }, [])
     
     return (
-        <View style={styles.container}>
+        <View style={styles.background}>
             <Header />
             <FlatList
                 data={offer} keyExtractor={item => `${item.id}`}
@@ -25,10 +26,5 @@ export default props => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    }
+    background: layoutStyles.background
 })

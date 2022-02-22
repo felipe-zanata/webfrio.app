@@ -4,7 +4,7 @@ import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
 
 import App from './src/App'
-//import App from './src/screens/Login'
+//import App from './src/screens/OfferList'
 import { OfferProvider } from "./src/data/contexts/OfferContext"
 import { UserProvider } from "./src/data/contexts/UserContext"
 import { EventProvider } from "./src/data/contexts/EventContext"
