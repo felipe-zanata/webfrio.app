@@ -1,31 +1,32 @@
 import React from 'react'
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
+import { Divider } from 'react-native-elements'
 import commonStyles from '../commonStyles'
 
 export default props => {
-    
+
     return (
-        <View style={{flex:1, flexDirection: 'row'}}>
+        <View style={{ paddingHorizontal: 10 }}>
             <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => { }}
                 style={styles.formContainer}>
-                <Image source={props.logo}
-                    style={styles.image} />
-                <View >
-                    <Text>Nome da empresa</Text>
-                    <Text style={ styles.title }>{props.name}</Text>
-                    <Text>Tipo de pagamento</Text>
-                    <Text style={ styles.title }>{props.payment}</Text>
-                    <Text>Preço</Text>
-                    <Text style={ styles.title }>{props.price}</Text>
+                <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+                    <View>
+                        <Text style={styles.subtitle}>Origem: <Text style={styles.title}>{props.origin}</Text></Text>
+                        <Text style={styles.subtitle}>Destino: <Text style={styles.title}>{props.destination}</Text></Text>
+                        <Text style={styles.subtitle}>Distancia: <Text style={styles.title}>{props.km}</Text></Text>
+                        <Text style={styles.subtitle}>Tipo de pagamento: <Text style={styles.title}>{props.payment}</Text></Text>
+                    </View>
+                    <View style={{ justifyContent: 'space-between', marginLeft: 10 }}>
+                        <Image source={props.logo}
+                            style={styles.image} />
+                        <Text style={styles.subtitle}>Preço: <Text style={styles.title}>{props.price}</Text></Text>
+                    </View>
                 </View>
-                <View>
-                    <Text>Origem</Text>
-                    <Text style={ styles.title }>{props.origin}</Text>
-                    <Text>Destino</Text>
-                    <Text style={ styles.title }>{props.destination}</Text>
-                    <Text>Kilometragem</Text>
-                    <Text style={ styles.title }>{props.km}</Text>
+                <Divider />
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={styles.subtitle}>Há 2 dias</Text>
+                    <Text style={styles.subtitle}>+Detalhes</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -37,13 +38,10 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         resizeMode: 'contain',
-        /*borderWidth: 1,
-        borderColor: commonStyles.colors.subText,*/
-        marginHorizontal: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     title: {
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.bold,
         color: commonStyles.colors.mainText,
         margin: 1,
         marginLeft: 5,
@@ -54,24 +52,21 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: commonStyles.fontFamily.regular,
         color: commonStyles.colors.subText,
-        fontSize: 20,
-        marginTop: 15,
-        textAlign: 'center',
-        marginBottom: 10
+        fontSize: 15,
+        margin: 3,
     },
     formContainer: {
-        flexDirection: 'row',
+        flex: 1,
         backgroundColor: '#FFF',
-        padding: 5,
-        margin: 5,
-        height: 150,
-        width: '95%',
+        paddingTop: 10,
+        paddingHorizontal: 10,
+        marginTop: 5,
+        width: Dimensions.get('window').width * 0.95,
         borderRadius: 10,
         shadowColor: '#171717',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         elevation: 3,
-        alignSelf: 'center',
     },
     button: {
         backgroundColor: 'rgb(66, 66, 66,0.8)',

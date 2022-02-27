@@ -5,7 +5,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-seara.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -15,7 +15,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-cacau-show.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -25,7 +25,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-vigor.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -35,7 +35,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-friboi.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -45,7 +45,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-swift.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -55,7 +55,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-ceratti.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -65,7 +65,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-rezende.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },
@@ -75,7 +75,7 @@ export default [
         logo: require('../../assets/imgs/temp/logo-frimesa.png'),
         price: 'R$ 500,00',
         origin: 'Itapeví - SP',
-        destination: 'Rio de JAneiro - RJ',
+        destination: 'Rio de Janeiro - RJ',
         km: '470 km',
         payment: 'A Vista'
     },

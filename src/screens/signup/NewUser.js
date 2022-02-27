@@ -17,7 +17,7 @@ export default props => {
     const propsData = props.route.params
     
     const addUserData = () => {
-        const userData = { ...propsData, "nome": name, "email": email, "telefone": cellphone }
+        const userData = { ...propsData, "nome": name, "email": email, "celular": cellphone }
         props.navigation.navigate('TypeVehicles', userData)
     }
 

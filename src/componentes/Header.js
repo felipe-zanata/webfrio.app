@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
-import { View, Text, Image, StyleSheet, Platform, Dimensions } from 'react-native'
-import Logo from '../../assets/imgs/WebFrio.png'
+import React, { useEffect, useState } from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import Truck from '../../assets/imgs/refrigerator.png'
 import NoStar from '../../assets/imgs/no-star.png'
 import Star from '../../assets/imgs/star.png'
 
 import useUser from '../data/hooks/useUser'
 import commonStyles from '../commonStyles'
-import layoutStyles from '../layoutStyles'
 
 export default props => {
 
     const { name, placa } = useUser()
 
     const [score, setScore] = useState(0)
+
+    const scoreMath = Math.floor(Math.random() * (5 - 1 + 1) + 1)
+
+    useEffect(() => {
+        setScore(scoreMath)
+    }, [])
 
     const getImagem = (i) => {
         if (i < score) {
@@ -24,9 +29,6 @@ export default props => {
     const RenderStars = () => {
         const starList = []
 
-        const scoreMath = Math.floor(Math.random() * (5 - 1 + 1) + 1)
-        setScore(scoreMath)
-
         for (let i = 0; i < 5; i++) {
             starList.push(
                 <Image key={i} source={getImagem(i)} style={styles.image} />
@@ -37,14 +39,20 @@ export default props => {
 
     return (
         <View style={styles.container}>
-            <Image source={Logo} style={styles.imageLogo} />
+            <TouchableOpacity style={styles.userContainer}>
+                <Image source={Truck} style={styles.imageLogo} />
+                <Text style={styles.user}>Fretes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.userContainer}>
+                <Image source={Truck} style={styles.imageLogo} />
+                <Text style={styles.user}>Agregamento</Text>
+            </TouchableOpacity>
             <View style={styles.userContainer}>
-                <Text style={styles.user}>{name? name : 'Felipe' + ' - ' + placa? placa : 'FBB-9470'}</Text>
+                <Text style={styles.user}>{'Felipe' + ' - ' + 'FBB-9470'}</Text>
                 <View style={styles.rowContainer}>
                     <RenderStars />
                     <Text style={styles.user}>{score}</Text>
                 </View>
-
             </View>
         </View>
     )
@@ -52,38 +60,30 @@ export default props => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Platform.OS === 'ios' ? 20 : 0,
         padding: 10,
         borderBottomWidth: 1,
-        borderColor: '#BBB',
+        borderColor: commonStyles.colors.subText,
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
     },
     rowContainer: {
         flex: 1,
         flexDirection: 'row',
     },
     imageLogo: {
-        height: 50,
-        width: 150,
+        marginHorizontal: 5,
+        height: 40,
+        width: 40,
         resizeMode: 'contain',
     },
     image: {
-        flex: 1,
-        height: 30,
-        width: 30,
-        marginTop: 20,
+        height: 18,
+        width: 18,
         marginHorizontal: 1,
         resizeMode: 'contain',
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end'
-    },
-    title: {
-        color: "#000",
-        fontFamily: 'shelter',
-        height: 30,
-        fontSize: 28
+        alignContent: 'center',
+        alignSelf: 'center'
     },
     userContainer: {
         alignItems: 'center'
@@ -91,15 +91,10 @@ const styles = StyleSheet.create({
     user: {
         fontFamily: commonStyles.fontFamily.semiBold,
         color: commonStyles.colors.title,
-        fontSize: 20,
+        fontSize: 15,
         marginLeft: 3,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        alignContent: 'center',
+        alignSelf: 'center'
     },
-    avatar: {
-        width: 30,
-        height: 30,
-        marginLeft: 10
-    }
 })
