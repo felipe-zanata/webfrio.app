@@ -19,9 +19,9 @@ export default props => {
 
     const ValidPlaca = () => {
         if (placa === 'AAA0000') {
-            { props.navigation.navigate('Register', { "placa": placa.toLocaleUpperCase() }) };
-        } else {
             return setShowNext(!showNext) // login(placa, password, props)
+        } else {
+            { props.navigation.navigate('Register', { "placa": placa.toLocaleUpperCase() }) };
         }
     }
 

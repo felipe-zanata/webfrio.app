@@ -5,6 +5,7 @@ import Logo from '../../../assets/imgs/WebFrio.png'
 import commonStyles from '../../commonStyles'
 import layoutStyles from '../../layoutStyles'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Button } from 'react-native-elements'
 
 export default props => {
 

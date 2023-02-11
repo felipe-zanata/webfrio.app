@@ -1,9 +1,9 @@
 export default [
     {
         id: 2,
-        name: 'Seara',  
+        name: 'Seara ',  
         logo: require('../../assets/imgs/temp/logo-seara.png'),
-        price: 'R$ 500,00',
+        price: 'R$ 5000,00',
         origin: 'Itapeví - SP',
         destination: 'Rio de Janeiro - RJ',
         km: '470 km',
